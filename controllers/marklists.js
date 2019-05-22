@@ -1,3 +1,28 @@
+// sample data
+const STUDENTS = [
+  {
+    roll: "Course",
+    name: "MA1010"
+  },
+  {
+    roll: "Teacher",
+    name: "Shafeef"
+  },
+  {
+    roll: "",
+    name: ""
+  },
+  {
+    roll: "AA0001",
+    name: "Muathasim"
+  },
+  {
+    roll: "AA0002",
+    name: "Abhijit"
+  }
+]
+
+
 angular.module('marklistsApp', ['ngCookies'])
 
 .config(['$qProvider', function ($qProvider) {
@@ -39,32 +64,37 @@ angular.module('marklistsApp', ['ngCookies'])
 
       $scope.fetchMarklist = function(marklists){
 
-      var co_data = {};
+      // var co_data = {};
 
-           co_data.token = $cookies.get("dashManager");
-           co_data.class = marklists.class;
-           co_data.division = marklists.division;
-           co_data.date = document.getElementById('marklistsDate').value;
+      //      co_data.token = $cookies.get("dashManager");
+      //      co_data.class = marklists.class;
+      //      co_data.division = marklists.division;
+      //      co_data.date = document.getElementById('marklistsDate').value;
 
-           console.log(co_data);
+      //      console.log(co_data);
 
 
-           $http({
-             method  : 'POST',
-             url     : 'http://www.schooldash.xyz/services/fetchmarklistslist.php',
-             data    : co_data,
-             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+      //      $http({
+      //        method  : 'POST',
+      //        url     : 'http://www.schooldash.xyz/services/fetchmarklistslist.php',
+      //        data    : co_data,
+      //        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+      //       })
+      //       .then(function(response) {
 
-         if(response.data.status){          
+      //    if(response.data.status){          
 
-         }
-         else{
-            $scope.deleteError = response.data.error;
-         }
-            });       
+      //    }
+      //    else{
+      //       $scope.deleteError = response.data.error;
+      //    }
+      //       });       
 
+      // Create a worksheet, append it to workbook, and save it as xlsx file
+        var ws = XLSX.utils.json_to_sheet(STUDENTS, {header: ["roll", "name"], skipHeader: true});
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet");
+        XLSX.writeFile(wb, "out.xlsx");
       }
       
       //Schools basic info
