@@ -1,4 +1,4 @@
-.attendance-wrapper{
+.attendance-wrapper, .progress-wrapper {
     width:80%;
     min-width:800px;
     margin:0 auto;
@@ -34,22 +34,24 @@ table td{
     border-bottom:10px solid #f1f5f8;
 }
 
-.attendance-wrapper h2 {
+.attendance-wrapper h2,
+.progress-wrapper h2 {
     font-weight:bold;
     color:#fff;
     display:inline-block;
 }
 
-.attendance-wrapper .titleContainer{
+.attendance-wrapper .titleContainer,
+.progress-wrapper .titleContainer {
     background:#3b95f5;
-    padding:10px 0 10px 10%;
+    padding:10px 0 10px 40%;
     margin:0;
     border-top-right-radius:6px;
     border-top-left-radius:6px;
     height: 90px; 
 }
 
-#attendanceStartDate, #attendanceEndDate {
+#attendanceReportDate {
     margin-top: 20px;
 }
 

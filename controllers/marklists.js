@@ -1,24 +1,18 @@
-// sample data
 const STUDENTS = [
   {
-    roll: "Course",
-    name: "MA1010"
-  },
-  {
-    roll: "Teacher",
-    name: "Shafeef"
-  },
-  {
-    roll: "",
-    name: ""
-  },
-  {
     roll: "AA0001",
-    name: "Muathasim"
+    name: "Muathasim",
+    marks: "0"
   },
   {
     roll: "AA0002",
-    name: "Abhijit"
+    name: "Abhijit",
+    marks: "0"
+  },
+  {
+    roll: "AA0003",
+    name: "Hari",
+    marks: "0"
   }
 ]
 
@@ -34,13 +28,13 @@ angular.module('marklistsApp', ['ngCookies'])
   .controller('marklistsController', function($scope, $http, $interval, $cookies) {
   
       //Check if logged in
-      if($cookies.get("dashManager")){
+      // if($cookies.get("dashManager")){
         $scope.isLoggedIn = true;
-      }
-      else{
-        $scope.isLoggedIn = false;
-        window.location = "adminlogin.html";
-      }
+      // }
+      // else{
+      //   $scope.isLoggedIn = false;
+      //   window.location = "adminlogin.html";
+      // }
       
       //Logout function
       $scope.logoutNow = function(){
@@ -88,10 +82,15 @@ angular.module('marklistsApp', ['ngCookies'])
       //    else{
       //       $scope.deleteError = response.data.error;
       //    }
-      //       });       
+      //       });    
+        var json = [];
+        json.push({roll: "Course", name: "MA1020", status: ""});
+        json.push({roll: "Teacher", name: "Shafeef", status: ""});
+        json.push({roll: "Class", name: marklists.class + "-" + marklists.division, status: ""});
+        json.push({roll: "", name: "", status: ""});
+        json = json.concat(STUDENTS); 
 
-      // Create a worksheet, append it to workbook, and save it as xlsx file
-        var ws = XLSX.utils.json_to_sheet(STUDENTS, {header: ["roll", "name"], skipHeader: true});
+        var ws = XLSX.utils.json_to_sheet(json, {header: ["roll", "name", "marks"], skipHeader: true});
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Sheet");
         XLSX.writeFile(wb, "out.xlsx");

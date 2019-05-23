@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-   <meta charset="utf-8">
-   <title>Attendance Report</title>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-   <meta name="apple-mobile-web-app-capable" content="yes">
-   <meta name="apple-touch-fullscreen" content="yes">
-   <meta name="description" content="Avenxo Admin Theme">
-   <meta name="author" content="KaijuThemes">
+   <head>
+      <meta charset="utf-8">
+      <title>Academic Report</title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-touch-fullscreen" content="yes">
+      <meta name="description" content="Avenxo Admin Theme">
+      <meta name="author" content="KaijuThemes">
 
 
-   <script src="assets/js/angular.min.js"></script>
-   <script src="assets/js/angular-cookies.min.js"></script>
+      <script src="assets/js/angular.min.js"></script>
+      <script src="assets/js/angular-cookies.min.js"></script>
 
-   <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
+      <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
 
-   <link type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">        <!-- Font Awesome -->
-   <link type="text/css" href="assets/fonts/themify-icons/themify-icons.css" rel="stylesheet">              <!-- Themify Icons -->
-   <link type="text/css" href="assets/css/styles.css" rel="stylesheet">                                     <!-- Core CSS with all styles -->
+      <link type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">        <!-- Font Awesome -->
+      <link type="text/css" href="assets/fonts/themify-icons/themify-icons.css" rel="stylesheet">              <!-- Themify Icons -->
+      <link type="text/css" href="assets/css/styles.css" rel="stylesheet">                                     <!-- Core CSS with all styles -->
 
-   <link type="text/css" href="assets/plugins/codeprettifier/prettify.css" rel="stylesheet">                <!-- Code Prettifier -->
-   <link type="text/css" href="assets/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">              <!-- iCheck -->
-   <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+      <link type="text/css" href="assets/plugins/codeprettifier/prettify.css" rel="stylesheet">                <!-- Code Prettifier -->
+      <link type="text/css" href="assets/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">              <!-- iCheck -->
+      <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
-   <link type="text/css" href="attendance-report.css" rel="stylesheet">
-   <script src="controllers/attendance-report.js"></script>
+      <link type="text/css" href="academic-report.css" rel="stylesheet">
+      <script src="controllers/academic-report.js"></script>
+      <script src="assets/js/html2canvas.min.js"></script>
+      <script src="assets/js/pdfmake.min.js"></script>
+      <script src="assets/js/vfs_fonts.js"></script>
 
-   <!--[if lt IE 10]>
-      <script type="text/javascript" src="assets/js/media.match.min.js"></script>
-      <script type="text/javascript" src="assets/js/respond.min.js"></script>
-      <script type="text/javascript" src="assets/js/placeholder.min.js"></script>
-   <![endif]-->
-   <!-- The following CSS are included as plugins and can be removed if unused-->
-   
+      <!--[if lt IE 10]>
+         <script type="text/javascript" src="assets/js/media.match.min.js"></script>
+         <script type="text/javascript" src="assets/js/respond.min.js"></script>
+         <script type="text/javascript" src="assets/js/placeholder.min.js"></script>
+      <![endif]-->
+      <!-- The following CSS are included as plugins and can be removed if unused-->
+    
    </head>
 
-   <body class="animated-content" ng-app="attendanceReportApp" ng-controller="attendanceReportController" ng-cloak>
-      
+   <body class="animated-content" ng-app="academicReportApp" ng-controller="academicReportController" ng-cloak>
       <header id="topnav" class="navbar navbar-default navbar-fixed-top" role="banner">
          <div class="logo-area">
             <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
@@ -283,58 +286,74 @@
                   </div>
                </div>
             </div>
-               <div class="static-content-wrapper">
-                  <div class="static-content">
-                           <div class="attendance panel panel-profile">
-                                    <div class="panel-body">
-                                    <img src="http://placehold.it/300&text=Placeholder" class="img-circle col-md-2">
-                                    <div class="name">{{studentData.fName + " " + studentData.lName}}</div>
-                                    <div class="name">Reg No : {{studentData.regNo}}</div>
-                                    <div class="name">{{studentData.class}} - {{studentData.division}}</div>
-                                    <div class="name">Mob: {{studentData.contactPhone}}</div>
-                                    </div>
-                                 </div>
-
-                                 <div class="attendance-wrapper">
-
-                                    <div class="titleContainer">
-                                    <h2 class="col-md-5 col-sm-5 col-xs-5">Attendance Report</h2>
-                                    <div class="form-group col-md-2 col-sm-2 col-xs-2">
-                                             <input type="text" ng-model="searchDate" id="attendanceStartDate" placeholder="Start Date (Not functional right now)" class="form-control">
-                                       </div>
-                                       <div class="form-group col-md-2 col-sm-2 col-xs-2">
-                                             <input type="text" ng-model="searchDate" id="attendanceEndDate" placeholder="End Date (Not functional right now)" class="form-control">
-                                       </div>
-                                       <button class="btn clear col-md-2 col-sm-2 col-xs-2" ng-click="clearDate()">Search</button>
-                                    </div>
-                                    <div class="table-container">
-                                       <table class="main_table">
-                                 
-                                       <tr class="table_head">
-                                          <th>Date</th>
-                                          <th>Status</th>
-                                       </tr>
-                                 
-                                          <tbody>
-                                             <tr class="rowItem" ng-repeat="x in data | filter:{date: searchDate}">
-                                             <td>{{x.date}}</td>
-                                             <td ng-class="{ 'active' : x.status == true, 'inactive': x.status == false }">{{x.status ? "Present" : "Absent"}}</td>
-                                             </tr>
-                                          </tbody>
-                                       </table>
-                                    </div>
-                                 </div>
+            <div class="static-content-wrapper">
+               <div class="static-content">
+                  <div class="attendance panel panel-profile">
+                     <div class="panel-body">
+                        <img src="http://placehold.it/300&text=Placeholder" class="img-circle col-md-2">
+                        <div class="name">{{studentData.fName + " " + studentData.lName}}</div>
+                        <div class="name">Reg No : {{studentData.regNo}}</div>
+                        <div class="name">{{studentData.class}} - {{studentData.division}}</div>
+                        <div class="name">Mob: {{studentData.contactPhone}}</div>
+                     </div>
+                     <button ng-click="makePdf()" class="btn btn-warning" style="margin-left: 40%; margin-bottom: 5px">Download as PDF</button>
                   </div>
-                  <footer role="contentinfo">
-                        <div class="clearfix">
-                           <ul class="list-unstyled list-inline pull-left">
-                              <li><h6 style="margin: 0;">&copy; 2015 Avenxo</h6></li>
-                           </ul>
-                           <button class="pull-right btn btn-link btn-xs hidden-print" id="back-to-top"><i class="ti ti-arrow-up"></i></button>
+
+                              
+
+                  <div class="academic-wrapper" id="exportthis">
+                     <div class="progress-wrapper">
+                        <div class="titleContainer">
+                           <h2>Progress Report</h2>
                         </div>
-                  </footer>
+                        <div class="table-container">
+                           <table class="main_table">
+                              <tr class="table_head">
+                                 <th>Subject</th>
+                                 <th>Marks</th>
+                              </tr>
+                     
+                              <tbody>
+                                 <tr class="rowItem" ng-repeat="x in data">
+                                 <td>{{x.subject}}</td>
+                                 <td>{{x.marks}}</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <div class="attendance-wrapper">
+                        <div class="titleContainer">
+                           <h2>Attendance Report</h2>
+                        </div>
+                        <div class="table-container">
+                           <table class="main_table">
+                              <tr class="table_head">
+                                 <th>Date</th>
+                                 <th>Approved</th>
+                              </tr>
+                        
+                              <tbody>
+                                 <tr class="rowItem" ng-repeat="x in attendanceData">
+                                    <td>{{x.date}}</td>
+                                    <td ng-class="{ 'active' : x.status == true, 'inactive': x.status == false }">{{x.status ? "YES" : "NO"}}</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
                </div>
+               <footer role="contentinfo">
+                     <div class="clearfix">
+                        <ul class="list-unstyled list-inline pull-left">
+                           <li><h6 style="margin: 0;">&copy; 2015 Avenxo</h6></li>
+                        </ul>
+                        <button class="pull-right btn btn-link btn-xs hidden-print" id="back-to-top"><i class="ti ti-arrow-up"></i></button>
+                     </div>
+               </footer>
             </div>
+         </div>
       </div>
 
       <!-- Switcher -->
@@ -423,7 +442,7 @@
 
    </div>
 <!-- /Switcher -->
-<!-- Load site level scripts -->
+   <!-- Load site level scripts -->
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script> -->

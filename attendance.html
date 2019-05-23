@@ -22,6 +22,7 @@
 
     <link type="text/css" href="assets/plugins/codeprettifier/prettify.css" rel="stylesheet">                <!-- Code Prettifier -->
     <link type="text/css" href="assets/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">              <!-- iCheck -->
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="controllers/attendance.js"></script>
 
     <!--[if lt IE 10]>
@@ -289,25 +290,12 @@
                         	<ol class="breadcrumb">
                      		</ol>
                             <div class="container-fluid">
-                            	<div class="row">
-                           <div class="col-md-6">
-                              <div class="info-tile tile-green" ng-click="openType('upload')" id="firstTabButton">
-                                 <div class="tile-icon"><i class="ti ti-upload" id="firstIcon"></i></div>
-                                 <div class="tile-body" id="firstCount"><span>Upload File</span></div>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="info-tile tile-green" ng-click="openType('select')" id="secondTabButton">
-                                 <div class="tile-icon"><i class="ti ti-hand-open" id="secondIcon"></i></div>
-                                 <div class="tile-body" id="secondCount"><span>Select Absentees</span></div>
-                              </div>
-                           </div>
-                        </div>
+                            	
                                 
 
 <div data-widget-group="group1">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default" data-widget='{"draggable": "false"}'>
                 <div class="panel-heading">
                     <h2>Attendance Upload</h2>
@@ -317,7 +305,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form action="../services/uploadattendance.php" id="fileToUpload" name="fileToUpload" method="POST" enctype="multipart/form-data" class="dropzone"></form>
+                    <form action="http://localhost:5000/api/upload" id="fileToUpload" name="fileToUpload" method="POST" enctype="multipart/form-data" class="dropzone"></form>
                 </div>
             </div>
         </div>
@@ -327,7 +315,7 @@
 <div>
 	<form>
 		<div class="form-row">
-    		<div class="form-group col-md-3">
+    		<div class="form-group col-md-3 col-md-offset-1">
       			<label for="class">Class</label>
       			<select name="class" class="form-control" id="class" ng-model="attendance.class">
       				<option value="LKG">LKG</option>
@@ -347,7 +335,7 @@
 				</select>
     		</div>
     		<div class="form-group col-md-3">
-      			<label for="division">Class</label>
+      			<label for="division">Division</label>
       			<select name="division" class="form-control" id="division" ng-model="attendance.division">
       				<option value="A">A</option>
 					<option value="B">B</option>
@@ -370,9 +358,9 @@
                  <input type="text" id="attendanceDate" maxlength="10" class="form-control">     <!-- ng-modal -->
 			</div>
   		</div>
-		<div class="form-group col-md-3">
+		<div class="form-group col-md-2">
 				<label></label>
-				<button class="btn btn-primary" ng-click="fetchAttendanceList(attendance)"> Get Student List </button>
+				<button class="btn btn-primary" ng-click="fetchAttendanceList(attendance)" style="margin-top: 2.7rem"> Get Student List </button>
 		</div>
 
 		</div>

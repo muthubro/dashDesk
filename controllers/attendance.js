@@ -1,3 +1,22 @@
+const STUDENTS = [
+  {
+    roll: "AA0001",
+    name: "Muathasim",
+    status: "1"
+  },
+  {
+    roll: "AA0002",
+    name: "Abhijit",
+    status: "1"
+  },
+  {
+    roll: "AA0003",
+    name: "Hari",
+    status: "1"
+  }
+]
+
+
 angular.module('attendanceApp', ['ngCookies'])
 
 .config(['$qProvider', function ($qProvider) {
@@ -9,21 +28,21 @@ angular.module('attendanceApp', ['ngCookies'])
   .controller('attendanceController', function($scope, $http, $interval, $cookies) {
   
       //Check if logged in
-      if($cookies.get("dashManager")){
+      // if($cookies.get("dashManager")){
         $scope.isLoggedIn = true;
-      }
-      else{
-        $scope.isLoggedIn = false;
-        window.location = "adminlogin.html";
-      }
+      // }
+      // else{
+      //   $scope.isLoggedIn = false;
+      //   window.location = "adminlogin.html";
+      // }
       
-      //Logout function
-      $scope.logoutNow = function(){
-        if($cookies.get("dashManager")){
-          $cookies.remove("dashManager");
-          window.location = "adminlogin.html";
-        }
-      }
+      // //Logout function
+      // $scope.logoutNow = function(){
+      //   if($cookies.get("dashManager")){
+      //     $cookies.remove("dashManager");
+      //     window.location = "adminlogin.html";
+      //   }
+      // }
 
       //Parameters definition
 
@@ -39,32 +58,42 @@ angular.module('attendanceApp', ['ngCookies'])
 
       $scope.fetchAttendanceList = function(attendance){
 
-      var co_data = {};
+      // var co_data = {};
 
-           co_data.token = $cookies.get("dashManager");
-           co_data.class = attendance.class;
-           co_data.division = attendance.division;
-           co_data.date = document.getElementById('attendanceDate').value;
+      //      co_data.token = $cookies.get("dashManager");
+      //      co_data.class = attendance.class;
+      //      co_data.division = attendance.division;
+      //      co_data.date = document.getElementById('attendanceDate').value;
 
-           console.log(co_data);
+      //      console.log(co_data);
 
 
-           $http({
-             method  : 'POST',
-             url     : 'http://www.schooldash.xyz/services/fetchattendancelist.php',
-             data    : co_data,
-             headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-            })
-            .then(function(response) {
+      //      $http({
+      //        method  : 'POST',
+      //        url     : 'http://www.schooldash.xyz/services/fetchattendancelist.php',
+      //        data    : co_data,
+      //        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+      //       })
+      //       .then(function(response) {
 
-         if(response.data.status){          
+      //    if(response.data.status){          
 
-         }
-         else{
-            $scope.deleteError = response.data.error;
-         }
-            });       
+      //    }
+      //    else{
+      //       $scope.deleteError = response.data.error;
+      //    }
+      //       });       
+        var json = [];
+        json.push({roll: "Course", name: "MA1020", status: ""});
+        json.push({roll: "Teacher", name: "Shafeef", status: ""});
+        json.push({roll: "Class", name: attendance.class + "-" + attendance.division, status: ""});
+        json.push({roll: "", name: "", status: ""});
+        json = json.concat(STUDENTS);
 
+        var ws = XLSX.utils.json_to_sheet(json, {header: ["roll", "name", "status"], skipHeader: true});
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet");
+        XLSX.writeFile(wb, "out.xlsx");
       }
       
       //Schools basic info

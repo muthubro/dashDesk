@@ -42,14 +42,14 @@ table td{
 
 .attendance-wrapper .titleContainer{
     background:#3b95f5;
-    padding:10px 0 10px 10%;
+    padding:10px 0 10px 40%;
     margin:0;
     border-top-right-radius:6px;
     border-top-left-radius:6px;
     height: 90px; 
 }
 
-#attendanceStartDate, #attendanceEndDate {
+#attendanceReportDate {
     margin-top: 20px;
 }
 

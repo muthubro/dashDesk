@@ -1,13 +1,13 @@
 angular.module('attendanceReportApp', ['ngCookies'])
 
-.config(['$qProvider', function ($qProvider) {
+  .config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
-}])
+  }])
 
 
 
   .controller('attendanceReportController', function($scope, $http, $interval, $cookies) {
-  
+
       //Check if logged in
       // if($cookies.get("dashManager")){
         $scope.isLoggedIn = true;
@@ -33,21 +33,34 @@ angular.module('attendanceReportApp', ['ngCookies'])
         date: '22-05-2019',
         status: false
       }
-  
+
     ];
 
     setTimeout(function(){
-        $('#attendanceReportDate').datetimepicker({  
-            format: "dd-mm-yyyy",
-            weekStart: 1,
-              todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-        })  
-      }, 200);
+      $('#attendanceStartDate').datetimepicker({  
+          format: "dd-mm-yyyy",
+          weekStart: 1,
+            todayBtn:  1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      minView: 2,
+      forceParse: 0
+      })  
+    }, 200);
+
+    setTimeout(function(){
+      $('#attendanceEndDate').datetimepicker({  
+          format: "dd-mm-yyyy",
+          weekStart: 1,
+            todayBtn:  1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      minView: 2,
+      forceParse: 0
+      })  
+    }, 200);
       
       //Logout function
       $scope.logoutNow = function(){
@@ -55,10 +68,6 @@ angular.module('attendanceReportApp', ['ngCookies'])
           $cookies.remove("dashManager");
           window.location = "adminlogin.html";
         }
-      }
-
-      $scope.log = function() {
-          console.log($scope.searchDate);
       }
 
       $scope.clearDate = function() {
@@ -72,20 +81,20 @@ angular.module('attendanceReportApp', ['ngCookies'])
 
       $scope.studentData = {};
       $scope.newContentSet = function(){
-   
+
       $scope.studentData.fName = "Muathasim";
       $scope.studentData.lName = "Mohamed";
       $scope.studentData.regNo = "AA0001";
       $scope.studentData.class = "12";
       $scope.studentData.division = "A";
       $scope.studentData.contactPhone = "9544766381";
+    }
+    
+    $scope.newContentSet();
       
-     }
-     $scope.newContentSet();
+    //Schools basic info
+    $scope.schoolCode = localStorage.getItem("schoolCode");
+    $scope.schoolFancyName = localStorage.getItem("schoolCity");
       
-      //Schools basic info
-      $scope.schoolCode = localStorage.getItem("schoolCode");
-      $scope.schoolFancyName = localStorage.getItem("schoolCity");
-      
-     
+    
   });
