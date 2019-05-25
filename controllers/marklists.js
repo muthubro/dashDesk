@@ -87,6 +87,7 @@ angular.module('marklistsApp', ['ngCookies'])
         json.push({roll: "Course", name: "MA1020", status: ""});
         json.push({roll: "Teacher", name: "Shafeef", status: ""});
         json.push({roll: "Class", name: marklists.class + "-" + marklists.division, status: ""});
+        json.push({roll: "Date", name: $('#marklistsDate').val(), status: ""});
         json.push({roll: "", name: "", status: ""});
         json = json.concat(STUDENTS); 
 

@@ -87,6 +87,7 @@ angular.module('attendanceApp', ['ngCookies'])
         json.push({roll: "Course", name: "MA1020", status: ""});
         json.push({roll: "Teacher", name: "Shafeef", status: ""});
         json.push({roll: "Class", name: attendance.class + "-" + attendance.division, status: ""});
+        json.push({roll: "Date", name: $('#attendanceDate').val(), status: ""});
         json.push({roll: "", name: "", status: ""});
         json = json.concat(STUDENTS);
 
